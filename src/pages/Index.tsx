@@ -9,6 +9,7 @@ const FallingHearts = () => {
     delay: `${Math.random() * 10}s`,
     size: Math.random() * 25 + 15,
     duration: `${Math.random() * 5 + 12}s`,
+    sparkleDelay: `${Math.random() * 2}s`,
     opacity: Math.random() * 0.3 + 0.2
   }));
 
@@ -25,7 +26,14 @@ const FallingHearts = () => {
             opacity: heart.opacity
           }}
         >
-          <Icon name="Heart" size={heart.size} className="text-pink-400" />
+          <div 
+            className="animate-sparkle"
+            style={{
+              animationDelay: heart.sparkleDelay
+            }}
+          >
+            <Icon name="Heart" size={heart.size} className="text-pink-400" />
+          </div>
         </div>
       ))}
     </div>

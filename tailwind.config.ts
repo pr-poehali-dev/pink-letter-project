@@ -103,6 +103,10 @@ export default {
 				'fall': {
 					'0%': { transform: 'translateY(-100vh) rotate(0deg)', opacity: '1' },
 					'100%': { transform: 'translateY(100vh) rotate(360deg)', opacity: '0.3' }
+				},
+				'sparkle': {
+					'0%, 100%': { opacity: '0.4', filter: 'brightness(1) drop-shadow(0 0 2px rgba(255, 182, 193, 0.8))' },
+					'50%': { opacity: '1', filter: 'brightness(1.5) drop-shadow(0 0 8px rgba(255, 192, 203, 1))' }
 				}
 			},
 			animation: {
@@ -111,7 +115,8 @@ export default {
 				'fade-in': 'fade-in 0.5s ease-out',
 				'scale-in': 'scale-in 0.3s ease-out',
 				'float': 'float 3s ease-in-out infinite',
-				'fall': 'fall 8s linear infinite'
+				'fall': 'fall 8s linear infinite',
+				'sparkle': 'sparkle 2s ease-in-out infinite'
 			}
 		}
 	},
