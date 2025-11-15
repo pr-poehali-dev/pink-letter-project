@@ -13,11 +13,21 @@ const FallingHearts = () => {
     opacity: Math.random() * 0.3 + 0.2
   }));
 
+  const stars = Array.from({ length: 25 }, (_, i) => ({
+    id: i,
+    left: `${Math.random() * 100}%`,
+    delay: `${Math.random() * 8}s`,
+    size: Math.random() * 8 + 8,
+    duration: `${Math.random() * 4 + 10}s`,
+    sparkleDelay: `${Math.random() * 3}s`,
+    opacity: Math.random() * 0.4 + 0.3
+  }));
+
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {hearts.map((heart) => (
         <div
-          key={heart.id}
+          key={`heart-${heart.id}`}
           className="absolute animate-fall"
           style={{
             left: heart.left,
@@ -33,6 +43,27 @@ const FallingHearts = () => {
             }}
           >
             <Icon name="Heart" size={heart.size} className="text-pink-400" />
+          </div>
+        </div>
+      ))}
+      {stars.map((star) => (
+        <div
+          key={`star-${star.id}`}
+          className="absolute animate-fall"
+          style={{
+            left: star.left,
+            animationDelay: star.delay,
+            animationDuration: star.duration,
+            opacity: star.opacity
+          }}
+        >
+          <div 
+            className="animate-sparkle"
+            style={{
+              animationDelay: star.sparkleDelay
+            }}
+          >
+            <Icon name="Sparkles" size={star.size} className="text-yellow-400" />
           </div>
         </div>
       ))}
