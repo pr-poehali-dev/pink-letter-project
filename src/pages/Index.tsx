@@ -79,7 +79,7 @@ const Index = () => {
   useEffect(() => {
     const audio = new Audio('https://cdn.poehali.dev/duvet-gianna-campos.mp3');
     audio.loop = true;
-    audio.volume = 0.7;
+    audio.volume = 0.95;
     audioRef.current = audio;
 
     const playAudio = () => {
@@ -176,7 +176,7 @@ const Index = () => {
         )}
 
         {screen === 'yes' && (
-          <div className="text-center animate-scale-in w-full max-w-6xl px-6">
+          <div className="text-center animate-scale-in w-full max-w-7xl px-4">
             <div className="mb-8 flex justify-center">
               <Icon name="Heart" size={80} className="text-rose-500 animate-float" />
             </div>
