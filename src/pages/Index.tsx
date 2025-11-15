@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
 const FallingHearts = () => {
-  const hearts = Array.from({ length: 15 }, (_, i) => ({
+  const hearts = Array.from({ length: 40 }, (_, i) => ({
     id: i,
     left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 5}s`,
-    size: Math.random() * 20 + 20,
-    duration: `${Math.random() * 3 + 6}s`
+    delay: `${Math.random() * 10}s`,
+    size: Math.random() * 25 + 15,
+    duration: `${Math.random() * 5 + 12}s`,
+    opacity: Math.random() * 0.3 + 0.2
   }));
 
   return (
@@ -20,10 +21,11 @@ const FallingHearts = () => {
           style={{
             left: heart.left,
             animationDelay: heart.delay,
-            animationDuration: heart.duration
+            animationDuration: heart.duration,
+            opacity: heart.opacity
           }}
         >
-          <Icon name="Heart" size={heart.size} className="text-pink-400 opacity-60" />
+          <Icon name="Heart" size={heart.size} className="text-pink-400" />
         </div>
       ))}
     </div>
@@ -33,11 +35,13 @@ const FallingHearts = () => {
 const Index = () => {
   const [screen, setScreen] = useState<'initial' | 'no' | 'yes'>('initial');
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const audio = new Audio('https://cdn.poehali.dev/duvet-gianna-campos.mp3');
     audio.loop = true;
     audio.volume = 0.3;
+    audioRef.current = audio;
 
     const playAudio = () => {
       audio.play().catch(() => {});
@@ -52,9 +56,29 @@ const Index = () => {
     };
   }, []);
 
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (audioPlaying) {
+        audioRef.current.pause();
+        setAudioPlaying(false);
+      } else {
+        audioRef.current.play().catch(() => {});
+        setAudioPlaying(true);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-pink-50 to-rose-100 p-4 relative overflow-hidden">
       <FallingHearts />
+      
+      <button
+        onClick={toggleAudio}
+        className="fixed top-6 right-6 z-50 bg-pink-400 hover:bg-pink-500 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110"
+        aria-label="Toggle music"
+      >
+        <Icon name={audioPlaying ? "Pause" : "Play"} size={24} />
+      </button>
       
       <div className="relative z-10">
         {screen === 'initial' && (
